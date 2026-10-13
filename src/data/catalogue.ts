@@ -41,7 +41,7 @@ export const categories = [
     description: "Thoughtful gifts. Lasting connections.",
     detail: "Personalised corporate gifts and promotional merchandise for every occasion.",
   },
-];
+] as const;
 export const navigation = [
   { name: "Home", page: "" },
   { name: "About Us", page: "about" },
@@ -63,7 +63,8 @@ export const products = original.products.flatMap((block) => {
           : 0;
     return [];
   }
-  return block.tag === "h4" ? [{ name: block.text, category: categories[current] }] : [];
+  const category = categories[current];
+  return block.tag === "h4" && category ? [{ name: block.text, category }] : [];
 });
 export const testimonials = [
   {

@@ -222,7 +222,7 @@ export function CategoryGrid() {
   return (
     <div className="category-grid">
       {categories.map((c, i) => {
-        const Icon = icons[i];
+        const Icon = icons[i] ?? Printer;
         return (
           <article className={`category-card tone-${c.tone}`} key={c.slug}>
             <Link className="category-image" to="/$page" params={{ page: c.slug }}>
@@ -272,6 +272,8 @@ export function CategoryGrid() {
 }
 export function HomePage() {
   const [testimonial, setTestimonial] = useState(0);
+  const review = testimonials[testimonial] ?? testimonials[0];
+  if (!review) return null;
   return (
     <main>
       <section className="hero">
@@ -485,7 +487,7 @@ export function HomePage() {
             ].map(([Icon, t, p], i) => {
               const I = Icon as typeof Factory;
               return (
-                <div className={`why-item tone-${categories[i].tone}`} key={String(t)}>
+                <div className={`why-item tone-${categories[i]?.tone ?? "cyan"}`} key={String(t)}>
                   <span>
                     <I size={26} />
                   </span>
@@ -506,11 +508,11 @@ export function HomePage() {
           </div>
         </div>
         <div className="portfolio-grid">
-          {[
+          {([
             [portfolio.url, "Premium Packaging", "packaging-solutions"],
             [production.url, "Production Excellence", "printing-services"],
             [categories[2].image, "Signage Solutions", "signage-solutions"],
-          ].map(([image, title, page]) => (
+          ] as const).map(([image, title, page]) => (
             <Link to="/$page" params={{ page }} key={title}>
               <img src={image} alt={title} width="600" height="400" loading="lazy" />
               <div>
@@ -551,17 +553,17 @@ export function HomePage() {
           </div>
           <blockquote>
             <span className="quote-mark">“</span>
-            <p>{testimonials[testimonial].text}</p>
+            <p>{review.text}</p>
             <div className="reviewer">
               <span>
-                {testimonials[testimonial].name
+                {review.name
                   .split(" ")
                   .map((n) => n[0])
                   .join("")}
               </span>
               <div>
-                <strong>{testimonials[testimonial].name}</strong>
-                <small>{testimonials[testimonial].role}</small>
+                <strong>{review.name}</strong>
+                <small>{review.role}</small>
               </div>
             </div>
           </blockquote>
