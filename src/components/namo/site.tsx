@@ -27,7 +27,7 @@ import logo from "@/assets/namo-logo.png.asset.json";
 import hero from "@/assets/brand-studio.jpg";
 import production from "@/assets/production.png.asset.json";
 import about from "@/assets/about.png.asset.json";
-import portfolio from "@/assets/portfolio.png.asset.json";
+import packagingProfessional from "@/assets/packaging-professional.jpg";
 import original from "@/data/original-content.json";
 import { categories, products, navigation, testimonials } from "@/data/catalogue";
 const SiteContext = createContext({
@@ -509,7 +509,7 @@ export function HomePage() {
         </div>
         <div className="portfolio-grid">
           {([
-            [portfolio.url, "Premium Packaging", "packaging-solutions"],
+            [packagingProfessional, "Premium Packaging", "packaging-solutions"],
             [production.url, "Production Excellence", "printing-services"],
             [categories[2].image, "Signage Solutions", "signage-solutions"],
           ] as const).map(([image, title, page]) => (
