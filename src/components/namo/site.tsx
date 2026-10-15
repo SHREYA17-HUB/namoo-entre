@@ -30,6 +30,7 @@ import about from "@/assets/about.png.asset.json";
 import packagingProfessional from "@/assets/packaging-professional.jpg";
 import original from "@/data/original-content.json";
 import { categories, products, navigation, testimonials } from "@/data/catalogue";
+import { CartProvider, CartButton, useCart, buyNow, imageFor } from "./cart";
 const SiteContext = createContext({
   search: "",
   setSearch: (_value: string) => {},
@@ -93,6 +94,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
               <Heart />
               {saved.length > 0 && <span className="count">{saved.length}</span>}
             </Button>
+            <CartButton />
             <Button variant="ghost" size="icon" asChild>
               <Link
                 to="/$page"
@@ -850,6 +852,12 @@ export function ContentPage({ page }: { page: string }) {
 }
 function ProductCard({ product: p }: { product: (typeof products)[number] }) {
   const { saved, toggle } = useContext(SiteContext);
+  const cart = useCart();
+  const item = {
+    name: p.name,
+    slug: p.category.slug,
+    image: imageFor(p.name, p.category.image),
+  };
   return (
     <article className={`category-card tone-${p.category.tone}`}>
       <Link className="category-image" to="/$page" params={{ page: p.category.slug }}>
@@ -885,6 +893,16 @@ function ProductCard({ product: p }: { product: (typeof products)[number] }) {
               Request Quote <ArrowUpRight />
             </Link>
           </Button>
+        </div>
+        <div className="product-actions">
+          <Button
+            variant="outline"
+            onClick={() => cart.add(item)}
+            aria-label={`Add ${p.name} to cart`}
+          >
+            {cart.items.some((x) => x.name === p.name) ? "Added ✓" : "Add to Cart"}
+          </Button>
+          <Button onClick={() => buyNow(item)}>Buy Now</Button>
         </div>
       </div>
     </article>
