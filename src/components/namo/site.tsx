@@ -876,13 +876,7 @@ function ProductCard({ product: p }: { product: (typeof products)[number] }) {
   return (
     <article className={`category-card tone-${p.category.tone}`}>
       <Link className="category-image" to="/$page" params={{ page: p.category.slug }}>
-        <img
-          src={p.category.image}
-          alt={`${p.category.name} collection`}
-          width="512"
-          height="512"
-          loading="lazy"
-        />
+        <img src={item.image} alt={p.name} width="512" height="512" loading="lazy" />
       </Link>
       <Button
         variant="outline"
