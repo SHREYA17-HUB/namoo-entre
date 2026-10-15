@@ -21,6 +21,8 @@ import {
   ChevronRight,
   Instagram,
   Facebook,
+  Youtube,
+  MessageCircle,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/namo-logo.png.asset.json";
@@ -169,6 +171,17 @@ export function SiteShell({ children }: { children: ReactNode }) {
                 </a>
                 <a href="https://www.facebook.com/p/namoenterprisesbng/" aria-label="Facebook">
                   <Facebook size={19} />
+                </a>
+                <a href="https://www.youtube.com/@namoenterprisesbng" aria-label="YouTube">
+                  <Youtube size={19} />
+                </a>
+                <a
+                  href="https://wa.me/919035651622"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="WhatsApp"
+                >
+                  <MessageCircle size={19} />
                 </a>
               </div>
             </div>
@@ -863,13 +876,7 @@ function ProductCard({ product: p }: { product: (typeof products)[number] }) {
   return (
     <article className={`category-card tone-${p.category.tone}`}>
       <Link className="category-image" to="/$page" params={{ page: p.category.slug }}>
-        <img
-          src={p.category.image}
-          alt={`${p.category.name} collection`}
-          width="512"
-          height="512"
-          loading="lazy"
-        />
+        <img src={item.image} alt={p.name} width="512" height="512" loading="lazy" />
       </Link>
       <Button
         variant="outline"
