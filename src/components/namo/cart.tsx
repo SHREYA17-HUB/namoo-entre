@@ -25,7 +25,8 @@ export function imageFor(name: string, fallback: string) {
 }
 
 function productLink(slug: string) {
-  const origin = typeof window !== "undefined" ? window.location.origin : "https://namoo-entre.lovable.app";
+  const origin =
+    typeof window !== "undefined" ? window.location.origin : "https://namoo-entre.lovable.app";
   return `${origin}/${slug}`;
 }
 
@@ -61,7 +62,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
     );
   const setQty = (name: string, qty: number) =>
     setItems((list) =>
-      qty < 1 ? list.filter((x) => x.name !== name) : list.map((x) => (x.name === name ? { ...x, qty } : x)),
+      qty < 1
+        ? list.filter((x) => x.name !== name)
+        : list.map((x) => (x.name === name ? { ...x, qty } : x)),
     );
   const remove = (name: string) => setItems((list) => list.filter((x) => x.name !== name));
   return (
@@ -76,7 +79,13 @@ export function CartButton() {
   const { items, setOpen } = useCart();
   const count = items.reduce((s, i) => s + i.qty, 0);
   return (
-    <Button variant="ghost" size="icon" aria-label="Open cart" title="Cart" onClick={() => setOpen(true)}>
+    <Button
+      variant="ghost"
+      size="icon"
+      aria-label="Open cart"
+      title="Cart"
+      onClick={() => setOpen(true)}
+    >
       <ShoppingCart />
       {count > 0 && <span className="count">{count}</span>}
     </Button>
@@ -89,10 +98,20 @@ function CartPanel() {
   const total = items.reduce((s, i) => s + i.qty, 0);
   return (
     <div className="cart-overlay" onClick={() => setOpen(false)}>
-      <aside className="cart-panel" role="dialog" aria-label="Your cart" onClick={(e) => e.stopPropagation()}>
+      <aside
+        className="cart-panel"
+        role="dialog"
+        aria-label="Your cart"
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="cart-head">
           <h2>Your Cart</h2>
-          <Button variant="ghost" size="icon" aria-label="Close cart" onClick={() => setOpen(false)}>
+          <Button
+            variant="ghost"
+            size="icon"
+            aria-label="Close cart"
+            onClick={() => setOpen(false)}
+          >
             <X />
           </Button>
         </div>
@@ -107,16 +126,31 @@ function CartPanel() {
                   <strong>{i.name}</strong>
                   <small>Price on request</small>
                   <div className="cart-qty">
-                    <Button variant="outline" size="icon" aria-label={`Decrease ${i.name}`} onClick={() => setQty(i.name, i.qty - 1)}>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      aria-label={`Decrease ${i.name}`}
+                      onClick={() => setQty(i.name, i.qty - 1)}
+                    >
                       <Minus />
                     </Button>
                     <span>{i.qty}</span>
-                    <Button variant="outline" size="icon" aria-label={`Increase ${i.name}`} onClick={() => setQty(i.name, i.qty + 1)}>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      aria-label={`Increase ${i.name}`}
+                      onClick={() => setQty(i.name, i.qty + 1)}
+                    >
                       <Plus />
                     </Button>
                   </div>
                 </div>
-                <Button variant="ghost" size="icon" aria-label={`Remove ${i.name}`} onClick={() => remove(i.name)}>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  aria-label={`Remove ${i.name}`}
+                  onClick={() => remove(i.name)}
+                >
                   <Trash2 />
                 </Button>
               </li>

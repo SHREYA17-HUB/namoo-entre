@@ -56,165 +56,167 @@ export function SiteShell({ children }: { children: ReactNode }) {
   }
   return (
     <SiteContext.Provider value={{ search, setSearch, saved, toggle, onlySaved, setOnlySaved }}>
-      <div className="announcement">
-        <span>
-          <Sparkles size={13} /> Your One-Stop Printing & Branding Partner
-        </span>
-        <a href="tel:+919035651622">
-          <Phone size={12} /> +91 90356 51622
-        </a>
-      </div>
-      <header className="site-header">
-        <div className="header-main wrap">
-          <Link to="/" aria-label="NAMO Enterprises home" className="brand-logo">
-            <img src={logo.url} alt="NAMO Enterprises" width="150" height="72" />
-          </Link>
-          <form className="header-search" onSubmit={onSearch}>
-            <Search size={18} />
-            <input
-              aria-label="Search products and services"
-              placeholder="Search products and services…"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-            <span>Search</span>
-          </form>
-          <div className="header-actions">
-            <Button
-              variant="ghost"
-              size="icon"
-              aria-label="View wishlist"
-              title="Wishlist"
-              onClick={() => {
-                setOnlySaved(true);
-                setSearch("");
-                navigate({ to: "/$page", params: { page: "products" } });
-              }}
-            >
-              <Heart />
-              {saved.length > 0 && <span className="count">{saved.length}</span>}
-            </Button>
-            <CartButton />
-            <Button variant="ghost" size="icon" asChild>
-              <Link
-                to="/$page"
-                params={{ page: "contact" }}
-                aria-label="Quotation request"
-                title="Quotation request"
-              >
-                <ShoppingBag />
-              </Link>
-            </Button>
-            <Button className="quote-header" asChild>
-              <Link to="/$page" params={{ page: "contact" }}>
-                Get a Quote <ArrowUpRight />
-              </Link>
-            </Button>
-            <Button
-              className="menu-button"
-              variant="ghost"
-              size="icon"
-              onClick={() => setOpen(!open)}
-              aria-label={open ? "Close menu" : "Open menu"}
-              aria-expanded={open}
-            >
-              {open ? <X /> : <Menu />}
-            </Button>
-          </div>
-        </div>
-        <nav className={`main-nav wrap ${open ? "is-open" : ""}`} aria-label="Main navigation">
-          {navigation.map((n) =>
-            n.page ? (
-              <Link
-                key={n.page}
-                to="/$page"
-                params={{ page: n.page }}
-                activeProps={{ className: "nav-active" }}
-                onClick={() => setOpen(false)}
-              >
-                {n.name}
-              </Link>
-            ) : (
-              <Link
-                key="home"
-                to="/"
-                activeOptions={{ exact: true }}
-                activeProps={{ className: "nav-active" }}
-                onClick={() => setOpen(false)}
-              >
-                Home
-              </Link>
-            ),
-          )}
-          <span className="nav-note">
-            <span className="status-dot" /> Crafted with care. Printed to perfection.
+      <CartProvider>
+        <div className="announcement">
+          <span>
+            <Sparkles size={13} /> Your One-Stop Printing & Branding Partner
           </span>
-        </nav>
-      </header>
-      {children}
-      <footer>
-        <div className="wrap footer-grid">
-          <div>
-            <Link to="/" className="brand-logo footer-logo">
+          <a href="tel:+919035651622">
+            <Phone size={12} /> +91 90356 51622
+          </a>
+        </div>
+        <header className="site-header">
+          <div className="header-main wrap">
+            <Link to="/" aria-label="NAMO Enterprises home" className="brand-logo">
               <img src={logo.url} alt="NAMO Enterprises" width="150" height="72" />
             </Link>
-            <p>
-              Bringing your brand to life with creativity, precision and impact. Premium printing,
-              packaging and branding solutions since 2014.
-            </p>
-            <div className="social-links">
-              <a href="https://www.instagram.com/namoenterprisesbng/" aria-label="Instagram">
-                <Instagram size={19} />
-              </a>
-              <a href="https://www.facebook.com/p/namoenterprisesbng/" aria-label="Facebook">
-                <Facebook size={19} />
-              </a>
+            <form className="header-search" onSubmit={onSearch}>
+              <Search size={18} />
+              <input
+                aria-label="Search products and services"
+                placeholder="Search products and services…"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+              />
+              <span>Search</span>
+            </form>
+            <div className="header-actions">
+              <Button
+                variant="ghost"
+                size="icon"
+                aria-label="View wishlist"
+                title="Wishlist"
+                onClick={() => {
+                  setOnlySaved(true);
+                  setSearch("");
+                  navigate({ to: "/$page", params: { page: "products" } });
+                }}
+              >
+                <Heart />
+                {saved.length > 0 && <span className="count">{saved.length}</span>}
+              </Button>
+              <CartButton />
+              <Button variant="ghost" size="icon" asChild>
+                <Link
+                  to="/$page"
+                  params={{ page: "contact" }}
+                  aria-label="Quotation request"
+                  title="Quotation request"
+                >
+                  <ShoppingBag />
+                </Link>
+              </Button>
+              <Button className="quote-header" asChild>
+                <Link to="/$page" params={{ page: "contact" }}>
+                  Get a Quote <ArrowUpRight />
+                </Link>
+              </Button>
+              <Button
+                className="menu-button"
+                variant="ghost"
+                size="icon"
+                onClick={() => setOpen(!open)}
+                aria-label={open ? "Close menu" : "Open menu"}
+                aria-expanded={open}
+              >
+                {open ? <X /> : <Menu />}
+              </Button>
             </div>
           </div>
-          <div>
-            <h4>Explore NAMO</h4>
-            {navigation.slice(1).map((n) => (
-              <Link key={n.page} to="/$page" params={{ page: n.page }}>
-                {n.name}
+          <nav className={`main-nav wrap ${open ? "is-open" : ""}`} aria-label="Main navigation">
+            {navigation.map((n) =>
+              n.page ? (
+                <Link
+                  key={n.page}
+                  to="/$page"
+                  params={{ page: n.page }}
+                  activeProps={{ className: "nav-active" }}
+                  onClick={() => setOpen(false)}
+                >
+                  {n.name}
+                </Link>
+              ) : (
+                <Link
+                  key="home"
+                  to="/"
+                  activeOptions={{ exact: true }}
+                  activeProps={{ className: "nav-active" }}
+                  onClick={() => setOpen(false)}
+                >
+                  Home
+                </Link>
+              ),
+            )}
+            <span className="nav-note">
+              <span className="status-dot" /> Crafted with care. Printed to perfection.
+            </span>
+          </nav>
+        </header>
+        {children}
+        <footer>
+          <div className="wrap footer-grid">
+            <div>
+              <Link to="/" className="brand-logo footer-logo">
+                <img src={logo.url} alt="NAMO Enterprises" width="150" height="72" />
               </Link>
-            ))}
+              <p>
+                Bringing your brand to life with creativity, precision and impact. Premium printing,
+                packaging and branding solutions since 2014.
+              </p>
+              <div className="social-links">
+                <a href="https://www.instagram.com/namoenterprisesbng/" aria-label="Instagram">
+                  <Instagram size={19} />
+                </a>
+                <a href="https://www.facebook.com/p/namoenterprisesbng/" aria-label="Facebook">
+                  <Facebook size={19} />
+                </a>
+              </div>
+            </div>
+            <div>
+              <h4>Explore NAMO</h4>
+              {navigation.slice(1).map((n) => (
+                <Link key={n.page} to="/$page" params={{ page: n.page }}>
+                  {n.name}
+                </Link>
+              ))}
+            </div>
+            <div>
+              <h4>Our expertise</h4>
+              {categories.map((c) => (
+                <Link key={c.slug} to="/$page" params={{ page: c.slug }}>
+                  {c.name}
+                </Link>
+              ))}
+            </div>
+            <div>
+              <h4>Let’s talk about your brand</h4>
+              <a href="tel:+919035651622">
+                <Phone size={16} /> +91 90356 51622
+              </a>
+              <a className="email-link" href="mailto:namoenterprises116@gmail.com">
+                <Mail size={16} /> namoenterprises116@gmail.com
+              </a>
+              <p>Bangalore, Karnataka, India</p>
+              <Button asChild>
+                <Link to="/$page" params={{ page: "contact" }}>
+                  Start a project <ArrowUpRight />
+                </Link>
+              </Button>
+            </div>
           </div>
-          <div>
-            <h4>Our expertise</h4>
-            {categories.map((c) => (
-              <Link key={c.slug} to="/$page" params={{ page: c.slug }}>
-                {c.name}
-              </Link>
-            ))}
+          <div className="wrap footer-bottom">
+            <span>© 2026 NAMO Enterprises. All rights reserved.</span>
+            <span>Made for brands that stand out.</span>
           </div>
-          <div>
-            <h4>Let’s talk about your brand</h4>
-            <a href="tel:+919035651622">
-              <Phone size={16} /> +91 90356 51622
-            </a>
-            <a className="email-link" href="mailto:namoenterprises116@gmail.com">
-              <Mail size={16} /> namoenterprises116@gmail.com
-            </a>
-            <p>Bangalore, Karnataka, India</p>
-            <Button asChild>
-              <Link to="/$page" params={{ page: "contact" }}>
-                Start a project <ArrowUpRight />
-              </Link>
-            </Button>
-          </div>
-        </div>
-        <div className="wrap footer-bottom">
-          <span>© 2026 NAMO Enterprises. All rights reserved.</span>
-          <span>Made for brands that stand out.</span>
-        </div>
-      </footer>
-      <a
-        className="floating-contact"
-        href="https://wa.me/919035651622"
-        aria-label="Chat on WhatsApp"
-      >
-        <Phone size={21} />
-      </a>
+        </footer>
+        <a
+          className="floating-contact"
+          href="https://wa.me/919035651622"
+          aria-label="Chat on WhatsApp"
+        >
+          <Phone size={21} />
+        </a>
+      </CartProvider>
     </SiteContext.Provider>
   );
 }
