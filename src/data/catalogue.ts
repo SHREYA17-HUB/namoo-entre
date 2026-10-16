@@ -42,11 +42,11 @@ export const categories = [
     detail: "Personalised corporate gifts and promotional merchandise for every occasion.",
   },
 ] as const;
-export const navigation = [
+export const navigation: { name: string; page: string; label?: string }[] = [
   { name: "Home", page: "" },
   { name: "About Us", page: "about" },
   { name: "Services", page: "services" },
-  { name: "Products", page: "products" },
+  { name: "Products", page: "products", label: "Shop" },
   { name: "Industries We Serve", page: "industries" },
   { name: "Blogs", page: "blogs" },
   { name: "Contact Us", page: "contact" },

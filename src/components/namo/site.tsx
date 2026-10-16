@@ -135,7 +135,7 @@ export function SiteShell({ children }: { children: ReactNode }) {
                   activeProps={{ className: "nav-active" }}
                   onClick={() => setOpen(false)}
                 >
-                  {n.name}
+                  {n.label ?? n.name}
                 </Link>
               ) : (
                 <Link
